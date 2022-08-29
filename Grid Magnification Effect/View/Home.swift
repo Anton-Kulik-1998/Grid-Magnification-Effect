@@ -43,6 +43,8 @@ struct Home: View {
                                     // We Need to Re-Locate Every Item To Currently Draaging Position
                                     .offset(x: (transformedRect.midX - rect.midX), y: (transformedRect.midY - rect.midY))
                                     .offset(x: location.x - transformedLocation.x, y: location.y - transformedLocation.y)
+                                    //MARK: For Effect 2 Simply Replace Scale Location
+//                                    .scaleEffect(scale)
                             }
                             .padding(5)
                             .frame(height: width)
@@ -72,7 +74,10 @@ struct Home: View {
         let diagonalValue = sqrt((size.width * size.width) + (size.height * size.height))
         
         //MARK: For More Detail Divide Diagonal Value
-        let scale = root / (diagonalValue / 3)
+        
+        //MARK: Main Grid Magnification Effect
+        let scale = (root - 150) / 150
+//        let scale = root / (diagonalValue / 3)
         let modifiedScale = location == .zero ? 1 : (1 - scale)
         //MARK: To Avoid SwiftUI Transform Warningz
         return modifiedScale > 0 ? modifiedScale : 0.001
