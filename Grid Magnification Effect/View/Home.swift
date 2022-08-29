@@ -19,20 +19,26 @@ struct Home: View {
             let width = (size.width / 10)
             let itemCount = Int((size.height / width).rounded()) * 10
             
-            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 0), count: 10), spacing: 0) {
-                ForEach(0..<itemCount,id:\.self) {_ in
-                    GeometryReader{innerProxy in
-                        let rect = innerProxy.frame(in: .named("GESTURE"))
-                        let scale = itemScale(rect: rect, size: size)
-                       RoundedRectangle(cornerRadius: 4)
-                            .fill(.orange)
-                            .scaleEffect(scale)
+            //MARK: For Solid Linear Gradient
+            // We're Going to Use Mask
+            LinearGradient(colors: [.cyan, .yellow, .mint, .pink, .purple], startPoint: .topLeading, endPoint: .bottomTrailing)
+                .mask {
+                    LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 0), count: 10), spacing: 0) {
+                        ForEach(0..<itemCount,id:\.self) {_ in
+                            GeometryReader{innerProxy in
+                                let rect = innerProxy.frame(in: .named("GESTURE"))
+                                let scale = itemScale(rect: rect, size: size)
+                                RoundedRectangle(cornerRadius: 4)
+                                    .fill(.orange)
+                                    .scaleEffect(scale)
+                            }
+                            .padding(5)
+                            .frame(height: width)
+                            
+                        }
                     }
-                    .padding(5)
-                    .frame(height: width)
-                    
                 }
-            }
+            
         }
         .padding(15)
         .gesture(
